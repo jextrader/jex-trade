@@ -18,8 +18,8 @@ INVEST_PAGE = """
         body{font-family:'Inter',Arial,sans-serif;background:#0b0d11;min-height:100vh;display:flex;justify-content:center;align-items:center;padding:20px;color:#e8edf5}
         .card{max-width:440px;width:100%;background:#12161e;border-radius:32px;padding:40px 32px;border:1px solid rgba(255,255,255,.04);box-shadow:0 20px 60px rgba(0,0,0,.5)}
         .logo{font-size:28px;font-weight:700;color:#00D4FF;text-align:center;margin-bottom:4px}
-        .sub{color:#7a8599;text-align:center;font-size:14px;margin-bottom:24px}
-        .trust-badge{display:flex;justify-content:center;gap:12px;margin-bottom:20px;flex-wrap:wrap}
+        .sub{color:#7a8599;text-align:center;font-size:14px;margin-bottom:16px}
+        .trust-badge{display:flex;justify-content:center;gap:10px;margin-bottom:20px;flex-wrap:wrap}
         .trust-badge span{background:rgba(0,200,255,.06);border:1px solid rgba(0,200,255,.08);padding:4px 14px;border-radius:40px;font-size:11px;color:#00D4FF}
         .box{background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.04);border-radius:16px;padding:16px 20px;display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}
         .label{font-size:13px;color:#9aa4b8}
