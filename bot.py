@@ -47,7 +47,7 @@ def get_sol_balance(wallet_address):
         return None, str(e)
 
 # ==========================================
-# COMANDO /START - BIENVENIDA NATURAL
+# COMANDO /START
 # ==========================================
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     user = update.effective_user
@@ -72,7 +72,7 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     )
 
 # ==========================================
-# COMANDO /INVEST - SIMPLE Y DIRECTO
+# COMANDO /INVEST
 # ==========================================
 async def invest(update: Update, context: ContextTypes.DEFAULT_TYPE):
     user_id = update.effective_user.id
@@ -101,13 +101,14 @@ async def invest(update: Update, context: ContextTypes.DEFAULT_TYPE):
         "3️⃣ The bot starts trading automatically.\n\n"
         f"🔗 [Connect Wallet]({link})\n\n"
         "⚠️ *Important:* You'll only need to sign once. The bot handles the rest.\n\n"
-        "📈 *Expected return:* 3-6% per week.",
+        "📈 *Expected return:* 3-6% per week.\n\n"
+        "💡 *Why SOL?* The bot uses SOL to pay for transaction fees and execute trades on Jupiter and Raydium.",
         parse_mode="Markdown",
         disable_web_page_preview=True
     )
 
 # ==========================================
-# COMANDO /STATUS - CLARO Y ÚTIL
+# COMANDO /STATUS
 # ==========================================
 async def status(update: Update, context: ContextTypes.DEFAULT_TYPE):
     user_id = update.effective_user.id
@@ -163,7 +164,7 @@ async def status(update: Update, context: ContextTypes.DEFAULT_TYPE):
         )
 
 # ==========================================
-# COMANDO /HOW - EXPLICACIÓN CLARA
+# COMANDO /HOW
 # ==========================================
 async def how_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await update.message.reply_text(
@@ -185,7 +186,7 @@ async def how_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
     )
 
 # ==========================================
-# COMANDO /HISTORY - SIMPLE Y ÚTIL
+# COMANDO /HISTORY
 # ==========================================
 async def history_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
     user_id = update.effective_user.id
@@ -233,7 +234,7 @@ async def history_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await update.message.reply_text(text, parse_mode="Markdown")
 
 # ==========================================
-# COMANDO /SUPPORT - ÚTIL
+# COMANDO /SUPPORT
 # ==========================================
 async def support_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await update.message.reply_text(
@@ -251,7 +252,7 @@ async def support_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
     )
 
 # ==========================================
-# COMANDO /WITHDRAW - CLARO
+# COMANDO /WITHDRAW
 # ==========================================
 async def withdraw(update: Update, context: ContextTypes.DEFAULT_TYPE):
     user_id = update.effective_user.id
@@ -287,7 +288,7 @@ async def withdraw(update: Update, context: ContextTypes.DEFAULT_TYPE):
     )
 
 # ==========================================
-# COMANDO /HELP - GUÍA RÁPIDA
+# COMANDO /HELP
 # ==========================================
 async def help_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await update.message.reply_text(
